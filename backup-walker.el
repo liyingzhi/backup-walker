@@ -444,6 +444,7 @@ Offer to kill all associated backup buffers.
 with ARG, also kill the walking buffer"
   (interactive "P")
   (cond (backup-walker-minor-mode
+         (backup-walker-minor-mode -1)
          (pop-to-buffer (cdr (assq :walking-buf backup-walker-data-alist))))
         ((eq major-mode 'backup-walker-mode)
          (let* ((prefix (cdr (assq :backup-prefix backup-walker-data-alist)))
