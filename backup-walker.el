@@ -207,7 +207,7 @@
 (lexical-let ((overriding-element (cons 'buffer-read-only backup-walker-ro-map)))
 
   (defcustom backup-walker-minor-mode-hook nil
-    "Hook only run after entering `backup-walker-minor-mode'."
+    "Hook run after entering or exiting `backup-walker-minor-mode'."
     :group 'backup-walker
     :type 'hook)
 
@@ -228,11 +228,11 @@
         (let ((index (cdr (assq :index backup-walker-data-alist)))
               (suffixes (cdr (assq :backup-suffix-list backup-walker-data-alist))))
           (setq header-line-format (backup-walker-get-key-help-common index suffixes))
-          (add-to-list 'minor-mode-overriding-map-alist overriding-element)
-          (run-hooks 'backup-walker-minor-mode-hook))
+          (add-to-list 'minor-mode-overriding-map-alist overriding-element))
       (setq header-line-format nil)
       (setq minor-mode-overriding-map-alist
             (delq overriding-element minor-mode-overriding-map-alist)))
+    (run-hooks 'backup-walker-minor-mode-hook)
     backup-walker-minor-mode))
 
 (add-minor-mode 'backup-walker-minor-mode " walker" nil nil nil)
